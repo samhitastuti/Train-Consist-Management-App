@@ -1,13 +1,13 @@
 /**
  * Train Consist Management App
  *
- * Use Case 1: Initialize Train and Display Consist Summary
+ * Use Case 2: Add Passenger Bogies (ArrayList Operations)
  *
- * Demonstrates application startup, dynamic initialization
- * using ArrayList, and basic console output.
+ * Demonstrates dynamic insertion, deletion, and search
+ * operations using ArrayList.
  *
  * @author Samhita
- * @version 1.0
+ * @version 2.0
  */
 
 import java.util.*;
@@ -17,18 +17,36 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // 🔹 Welcome Message
         System.out.println("==========================================");
-        System.out.println("   Train Consist Management App");
+        System.out.println("   Train Consist Management App - UC2");
         System.out.println("==========================================\n");
 
-        // 🔹 Initialize Train Consist (Empty List)
-        List<String> trainConsist = new ArrayList<>();
+        // 🔹 Create Passenger Bogie List
+        List<String> passengerBogies = new ArrayList<>();
 
-        // 🔹 Display Initial Bogie Count
-        System.out.println("Train consist initialized.");
-        System.out.println("Initial number of bogies: " + trainConsist.size());
+        // 🔹 ADD bogies (CREATE)
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
 
-        System.out.println("\nSystem ready.\n");
+        System.out.println("Passenger bogies added:");
+        System.out.println(passengerBogies);
+
+        // 🔹 REMOVE bogie (DELETE)
+        passengerBogies.remove("AC Chair");
+
+        System.out.println("\nAfter removing AC Chair:");
+        System.out.println(passengerBogies);
+
+        // 🔹 CHECK existence (READ)
+        boolean exists = passengerBogies.contains("Sleeper");
+
+        System.out.println("\nDoes Sleeper bogie exist? " + exists);
+
+        // 🔹 FINAL STATE
+        System.out.println("\nFinal Passenger Bogie List:");
+        System.out.println(passengerBogies);
+
+        System.out.println("\nSystem running...\n");
     }
 }
