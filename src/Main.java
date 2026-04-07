@@ -1,13 +1,13 @@
 /**
  * Train Consist Management App
  *
- * Use Case 2: Add Passenger Bogies (ArrayList Operations)
+ * Use Case 3: Track Unique Bogie IDs (HashSet)
  *
- * Demonstrates dynamic insertion, deletion, and search
- * operations using ArrayList.
+ * Demonstrates enforcing uniqueness using Set (HashSet)
+ * and preventing duplicate bogie IDs.
  *
  * @author Samhita
- * @version 2.0
+ * @version 3.0
  */
 
 import java.util.*;
@@ -18,34 +18,27 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("==========================================");
-        System.out.println("   Train Consist Management App - UC2");
+        System.out.println("   Train Consist Management App - UC3");
         System.out.println("==========================================\n");
 
-        // 🔹 Create Passenger Bogie List
-        List<String> passengerBogies = new ArrayList<>();
+        // 🔹 Create HashSet for Bogie IDs
+        Set<String> bogieIds = new HashSet<>();
 
-        // 🔹 ADD bogies (CREATE)
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // 🔹 ADD bogie IDs (with duplicates)
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
+        bogieIds.add("BG103");
+        bogieIds.add("BG101"); // duplicate
+        bogieIds.add("BG102"); // duplicate
 
-        System.out.println("Passenger bogies added:");
-        System.out.println(passengerBogies);
+        System.out.println("Bogie IDs after insertion (duplicates ignored):");
+        System.out.println(bogieIds);
 
-        // 🔹 REMOVE bogie (DELETE)
-        passengerBogies.remove("AC Chair");
+        // 🔹 Check existence
+        boolean exists = bogieIds.contains("BG101");
+        System.out.println("\nDoes BG101 exist? " + exists);
 
-        System.out.println("\nAfter removing AC Chair:");
-        System.out.println(passengerBogies);
-
-        // 🔹 CHECK existence (READ)
-        boolean exists = passengerBogies.contains("Sleeper");
-
-        System.out.println("\nDoes Sleeper bogie exist? " + exists);
-
-        // 🔹 FINAL STATE
-        System.out.println("\nFinal Passenger Bogie List:");
-        System.out.println(passengerBogies);
+        System.out.println("\nTotal unique bogies: " + bogieIds.size());
 
         System.out.println("\nSystem running...\n");
     }
