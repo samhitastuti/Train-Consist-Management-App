@@ -1,13 +1,13 @@
 /**
  * Train Consist Management App
  *
- * Use Case 3: Track Unique Bogie IDs (HashSet)
+ * Use Case 4: Maintain Ordered Train Consist (LinkedList)
  *
- * Demonstrates enforcing uniqueness using Set (HashSet)
- * and preventing duplicate bogie IDs.
+ * Demonstrates ordered storage and efficient insertion/deletion
+ * using LinkedList to model real train chaining.
  *
  * @author Samhita
- * @version 3.0
+ * @version 4.0
  */
 
 import java.util.*;
@@ -18,27 +18,38 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("==========================================");
-        System.out.println("   Train Consist Management App - UC3");
+        System.out.println("   Train Consist Management App - UC4");
         System.out.println("==========================================\n");
 
-        // 🔹 Create HashSet for Bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // 🔹 Create LinkedList for Train Consist
+        LinkedList<String> train = new LinkedList<>();
 
-        // 🔹 ADD bogie IDs (with duplicates)
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        // 🔹 Add bogies (ORDER MATTERS)
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
 
-        System.out.println("Bogie IDs after insertion (duplicates ignored):");
-        System.out.println(bogieIds);
+        System.out.println("Initial Train Consist:");
+        System.out.println(train);
 
-        // 🔹 Check existence
-        boolean exists = bogieIds.contains("BG101");
-        System.out.println("\nDoes BG101 exist? " + exists);
+        // 🔹 Insert Pantry Car at position 2 (index = 2)
+        train.add(2, "Pantry");
 
-        System.out.println("\nTotal unique bogies: " + bogieIds.size());
+        System.out.println("\nAfter adding Pantry at position 2:");
+        System.out.println(train);
+
+        // 🔹 Remove first and last bogie
+        train.removeFirst();
+        train.removeLast();
+
+        System.out.println("\nAfter removing first and last bogie:");
+        System.out.println(train);
+
+        // 🔹 Final Ordered Train
+        System.out.println("\nFinal Train Consist:");
+        System.out.println(train);
 
         System.out.println("\nSystem running...\n");
     }
