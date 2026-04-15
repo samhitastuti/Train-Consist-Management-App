@@ -1,34 +1,57 @@
+import java.util.Arrays;
+
 public class Main {
 
-    // 🔍 Linear Search Method
-    public static boolean linearSearch(String[] bogieIds, String key) {
-        for (int i = 0; i < bogieIds.length; i++) {
+    // 🔍 Binary Search Method
+    public static boolean binarySearch(String[] bogies, String key) {
 
-            // Compare using equals()
-            if (bogieIds[i].equals(key)) {
-                return true; // Early termination
+        int low = 0;
+        int high = bogies.length - 1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int cmp = bogies[mid].compareTo(key);
+
+            if (cmp == 0) {
+                return true; // Found
+            } else if (cmp < 0) {
+                low = mid + 1; // Search right
+            } else {
+                high = mid - 1; // Search left
             }
         }
+
         return false; // Not found
     }
 
     public static void main(String[] args) {
 
-        System.out.println("🚆 Train Consist Management System - UC18\n");
+        System.out.println("🚆 Train Consist Management System - UC19\n");
 
-        // Sample bogie IDs
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
+        // ✅ Sorted Input
+        String[] bogies1 = {"BG101","BG205","BG309","BG412","BG550"};
+        System.out.println("Search BG309: " + binarySearch(bogies1, "BG309")); // true
+        System.out.println("Search BG999: " + binarySearch(bogies1, "BG999")); // false
 
-        // ✅ Test Cases
-        System.out.println("Search BG309: " + linearSearch(bogies, "BG309")); // true
-        System.out.println("Search BG999: " + linearSearch(bogies, "BG999")); // false
-        System.out.println("Search BG101: " + linearSearch(bogies, "BG101")); // true
-        System.out.println("Search BG550: " + linearSearch(bogies, "BG550")); // true
+        // ✅ First & Last Element
+        System.out.println("Search BG101: " + binarySearch(bogies1, "BG101")); // true
+        System.out.println("Search BG550: " + binarySearch(bogies1, "BG550")); // true
 
-        // Single element case
+        // ✅ Single Element
         String[] single = {"BG101"};
-        System.out.println("Search in single array: " + linearSearch(single, "BG101")); // true
+        System.out.println("Single Element: " + binarySearch(single, "BG101")); // true
 
-        System.out.println("\n🚆 Linear Search Completed!");
+        // ✅ Empty Array
+        String[] empty = {};
+        System.out.println("Empty Array: " + binarySearch(empty, "BG101")); // false
+
+        // ✅ Unsorted Input → Sort first
+        String[] unsorted = {"BG309","BG101","BG550","BG205","BG412"};
+        Arrays.sort(unsorted);
+        System.out.println("Unsorted handled (BG205): " + binarySearch(unsorted, "BG205")); // true
+
+        System.out.println("\n🚆 Binary Search Completed!");
     }
 }
