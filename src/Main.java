@@ -1,57 +1,48 @@
-import java.util.Arrays;
-
 public class Main {
 
-    // 🔍 Binary Search Method
-    public static boolean binarySearch(String[] bogies, String key) {
+    // 🔍 Search with Fail-Fast Validation
+    public static boolean searchBogie(String[] bogies, String key) {
 
-        int low = 0;
-        int high = bogies.length - 1;
+        // 🚨 Fail-Fast Check
+        if (bogies == null || bogies.length == 0) {
+            throw new IllegalStateException("No bogies available in the train. Cannot perform search.");
+        }
 
-        while (low <= high) {
-
-            int mid = (low + high) / 2;
-
-            int cmp = bogies[mid].compareTo(key);
-
-            if (cmp == 0) {
-                return true; // Found
-            } else if (cmp < 0) {
-                low = mid + 1; // Search right
-            } else {
-                high = mid - 1; // Search left
+        // 🔍 Linear Search (can reuse UC18 logic)
+        for (int i = 0; i < bogies.length; i++) {
+            if (bogies[i].equals(key)) {
+                return true;
             }
         }
 
-        return false; // Not found
+        return false;
     }
 
     public static void main(String[] args) {
 
-        System.out.println("🚆 Train Consist Management System - UC19\n");
+        System.out.println("🚆 Train Consist Management System - UC20\n");
 
-        // ✅ Sorted Input
-        String[] bogies1 = {"BG101","BG205","BG309","BG412","BG550"};
-        System.out.println("Search BG309: " + binarySearch(bogies1, "BG309")); // true
-        System.out.println("Search BG999: " + binarySearch(bogies1, "BG999")); // false
+        // ❌ Test Case 1: Empty Array → Exception
+        try {
+            String[] empty = {};
+            System.out.println("Searching in empty array...");
+            searchBogie(empty, "BG101");
+        } catch (IllegalStateException e) {
+            System.out.println("❌ Exception: " + e.getMessage());
+        }
 
-        // ✅ First & Last Element
-        System.out.println("Search BG101: " + binarySearch(bogies1, "BG101")); // true
-        System.out.println("Search BG550: " + binarySearch(bogies1, "BG550")); // true
+        System.out.println();
 
-        // ✅ Single Element
+        // ✅ Test Case 2: Data exists → Search allowed
+        String[] bogies = {"BG101","BG205","BG309"};
+
+        System.out.println("Search BG205: " + searchBogie(bogies, "BG205")); // true
+        System.out.println("Search BG999: " + searchBogie(bogies, "BG999")); // false
+
+        // ✅ Test Case 3: Single Element
         String[] single = {"BG101"};
-        System.out.println("Single Element: " + binarySearch(single, "BG101")); // true
+        System.out.println("Single Element: " + searchBogie(single, "BG101")); // true
 
-        // ✅ Empty Array
-        String[] empty = {};
-        System.out.println("Empty Array: " + binarySearch(empty, "BG101")); // false
-
-        // ✅ Unsorted Input → Sort first
-        String[] unsorted = {"BG309","BG101","BG550","BG205","BG412"};
-        Arrays.sort(unsorted);
-        System.out.println("Unsorted handled (BG205): " + binarySearch(unsorted, "BG205")); // true
-
-        System.out.println("\n🚆 Binary Search Completed!");
+        System.out.println("\n🚆 Search operation completed with validation!");
     }
 }
