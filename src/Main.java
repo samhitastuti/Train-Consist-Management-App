@@ -1,60 +1,76 @@
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
+public class Main {
 
-class GoodsBogie {
-    private String shape;
-    private String cargoType;
+    // 🔁 Bubble Sort Method
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
 
-    public GoodsBogie(String shape) {
-        this.shape = shape;
-    }
+        // Outer loop → number of passes
+        for (int i = 0; i < n - 1; i++) {
 
-    public void assignCargo(String cargo) {
-        try {
-            // Safety check
-            if (shape.equalsIgnoreCase("Rectangular") && cargo.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException("Unsafe! Cannot assign Petroleum to Rectangular Bogie.");
+            // Inner loop → compare adjacent elements
+            for (int j = 0; j < n - i - 1; j++) {
+
+                // Swap if out of order
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-
-            // Safe assignment
-            this.cargoType = cargo;
-            System.out.println("✅ Cargo '" + cargo + "' assigned to " + shape + " bogie.");
-
-        } catch (CargoSafetyException e) {
-            // Handle exception
-            System.out.println("❌ Error: " + e.getMessage());
-
-        } finally {
-            // Always executes
-            System.out.println("🔄 Assignment attempt completed for " + shape + " bogie.\n");
         }
     }
 
-    public String getCargoType() {
-        return cargoType;
+    // 🖨️ Utility to print array
+    public static void printArray(int[] arr) {
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
     }
-}
 
-public class Main {
     public static void main(String[] args) {
 
-        System.out.println("🚆 Train Consist Management System - UC15\n");
+        System.out.println("🚆 Train Consist Management System - UC16\n");
 
-        // ✅ Safe case
-        GoodsBogie bogie1 = new GoodsBogie("Cylindrical");
-        bogie1.assignCargo("Petroleum");
+        // ✅ Test Case 1: Basic Sorting
+        int[] capacities1 = {72, 56, 24, 70, 60};
+        System.out.print("Before Sorting: ");
+        printArray(capacities1);
 
-        // ❌ Unsafe case (handled)
-        GoodsBogie bogie2 = new GoodsBogie("Rectangular");
-        bogie2.assignCargo("Petroleum");
+        bubbleSort(capacities1);
 
-        // ✅ Program continues
-        GoodsBogie bogie3 = new GoodsBogie("Rectangular");
-        bogie3.assignCargo("Coal");
+        System.out.print("After Sorting:  ");
+        printArray(capacities1);
+        System.out.println();
 
-        System.out.println("🚆 System continues running after exception handling!");
+        // ✅ Test Case 2: Already Sorted
+        int[] capacities2 = {24, 56, 60, 70, 72};
+        bubbleSort(capacities2);
+        System.out.print("Already Sorted: ");
+        printArray(capacities2);
+        System.out.println();
+
+        // ✅ Test Case 3: Duplicates
+        int[] capacities3 = {72, 56, 56, 24};
+        bubbleSort(capacities3);
+        System.out.print("With Duplicates: ");
+        printArray(capacities3);
+        System.out.println();
+
+        // ✅ Test Case 4: Single Element
+        int[] capacities4 = {50};
+        bubbleSort(capacities4);
+        System.out.print("Single Element: ");
+        printArray(capacities4);
+        System.out.println();
+
+        // ✅ Test Case 5: All Equal
+        int[] capacities5 = {40, 40, 40};
+        bubbleSort(capacities5);
+        System.out.print("All Equal: ");
+        printArray(capacities5);
+        System.out.println();
+
+        System.out.println("🚆 Sorting completed using Bubble Sort!");
     }
 }
