@@ -1,45 +1,60 @@
-/**
- * Train Consist Management App
- *
- * Use Case 3: Track Unique Bogie IDs (HashSet)
- *
- * Demonstrates enforcing uniqueness using Set (HashSet)
- * and preventing duplicate bogie IDs.
- *
- * @author Samhita
- * @version 3.0
- */
+class CargoSafetyException extends RuntimeException {
+    public CargoSafetyException(String message) {
+        super(message);
+    }
+}
 
-import java.util.*;
+class GoodsBogie {
+    private String shape;
+    private String cargoType;
 
-// 🔹 Main Class
+    public GoodsBogie(String shape) {
+        this.shape = shape;
+    }
+
+    public void assignCargo(String cargo) {
+        try {
+            // Safety check
+            if (shape.equalsIgnoreCase("Rectangular") && cargo.equalsIgnoreCase("Petroleum")) {
+                throw new CargoSafetyException("Unsafe! Cannot assign Petroleum to Rectangular Bogie.");
+            }
+
+            // Safe assignment
+            this.cargoType = cargo;
+            System.out.println("✅ Cargo '" + cargo + "' assigned to " + shape + " bogie.");
+
+        } catch (CargoSafetyException e) {
+            // Handle exception
+            System.out.println("❌ Error: " + e.getMessage());
+
+        } finally {
+            // Always executes
+            System.out.println("🔄 Assignment attempt completed for " + shape + " bogie.\n");
+        }
+    }
+
+    public String getCargoType() {
+        return cargoType;
+    }
+}
+
 public class Main {
-
     public static void main(String[] args) {
 
-        System.out.println("==========================================");
-        System.out.println("   Train Consist Management App - UC3");
-        System.out.println("==========================================\n");
+        System.out.println("🚆 Train Consist Management System - UC15\n");
 
-        // 🔹 Create HashSet for Bogie IDs
-        Set<String> bogieIds = new HashSet<>();
+        // ✅ Safe case
+        GoodsBogie bogie1 = new GoodsBogie("Cylindrical");
+        bogie1.assignCargo("Petroleum");
 
-        // 🔹 ADD bogie IDs (with duplicates)
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        // ❌ Unsafe case (handled)
+        GoodsBogie bogie2 = new GoodsBogie("Rectangular");
+        bogie2.assignCargo("Petroleum");
 
-        System.out.println("Bogie IDs after insertion (duplicates ignored):");
-        System.out.println(bogieIds);
+        // ✅ Program continues
+        GoodsBogie bogie3 = new GoodsBogie("Rectangular");
+        bogie3.assignCargo("Coal");
 
-        // 🔹 Check existence
-        boolean exists = bogieIds.contains("BG101");
-        System.out.println("\nDoes BG101 exist? " + exists);
-
-        System.out.println("\nTotal unique bogies: " + bogieIds.size());
-
-        System.out.println("\nSystem running...\n");
+        System.out.println("🚆 System continues running after exception handling!");
     }
 }
